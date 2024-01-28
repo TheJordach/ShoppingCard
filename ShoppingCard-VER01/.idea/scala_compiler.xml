@@ -22,7 +22,6 @@
         <parameter value="-Xlint:inaccessible" />
         <parameter value="-Xlint:infer-any" />
         <parameter value="-Xlint:missing-interpolator" />
-        <parameter value="-Xlint:nullary-override" />
         <parameter value="-Xlint:nullary-unit" />
         <parameter value="-Xlint:option-implicit" />
         <parameter value="-Xlint:package-object-classes" />

@@ -30,24 +30,50 @@ libraryDependencies ++= Seq(
   "com.github.julien-truffaut" %% "monocle-macro" % "2.0.1"
 )
 
+/***
+ *   -Ymacro-annotations
+ *   Used for : "io.estatico" %% "newtype" % "0.4.3",
+ *     - It uses macros, for which we need the macro paradise compiler plugin in Scala versions
+         below 2.13.0, and only an extra compiler flag -Ymacro-annotations in versions 2.13.0 and above
+ */
 
 scalacOptions += "-Ymacro-annotations"
 
-// The following setting are not in the book
 
-Global / excludeLintKeys += root / idePackagePrefix  // Add this line to exclude the unused key from lintUnused check
 
-// Replace deprecated semicolon syntax with slash syntax for other settings
+/********************* The following setting are not in the book **************************************/
+
+/*
+    ERROR
+    Wen i tried to compile the project i get ERROR -> "scalac: 'nullary-override' is not a valid choice for '-Xlint'"
+    Following solve the compiler error
+ */
+scalacOptions --= Seq(
+  "-Xlint:by-name-right-associative",
+  "-Xlint:nullary-override",
+  "-Xlint:unsound-match",
+  "-Yno-adapted-args"
+)
+
+/**
+ * Add this line to exclude the unused key from lintUnused check
+ */
+Global / excludeLintKeys += root / idePackagePrefix
+
+/**
+ * Replace deprecated semicolon syntax with slash syntax for other settings
+ */
 Global / historyPath := None
 Global / shellPrompt := { _ => "" }
 
-
-
-
-
+/**
+ * ISSUE WITH kind-projector
+ * 1- Write resolvers like so to allow Scala 2.13.12 to find kind-projector
+ * 2- Change the "kind-projector VER from "0.11.0" --> "0.13.2"
+ */
 
 resolvers ++=Seq(
   Resolver.defaultLocal,
   Resolver.mavenLocal,
-  "Maven Central" at "https://repo1.maven.org/maven2/"
+  "kind-projector library uses Maven Central" at "https://repo1.maven.org/maven2/"
 )
