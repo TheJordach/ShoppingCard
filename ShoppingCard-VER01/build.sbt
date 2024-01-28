@@ -1,6 +1,6 @@
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.13.12"
+ThisBuild / scalaVersion := "2.13.12" // Book scala version is "2.13.0"
 
 lazy val root = (project in file("."))
   .settings(
@@ -10,7 +10,8 @@ lazy val root = (project in file("."))
 
 libraryDependencies ++= Seq(
   compilerPlugin(
-    "org.typelevel" %% "kind-projector" % "0.13.2" cross CrossVersion.full
+    "org.typelevel" %% "kind-projector" % "0.13.2" cross CrossVersion.full  // Change the "kind-projector "0.11.0"  ---> "0.13.2"
+
   ),
   compilerPlugin(
     "org.augustjune" %% "context-applied" % "0.1.2"
@@ -31,7 +32,18 @@ libraryDependencies ++= Seq(
 
 
 scalacOptions += "-Ymacro-annotations"
-//addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.6")
+
+// The following setting are not in the book
+
+Global / excludeLintKeys += root / idePackagePrefix  // Add this line to exclude the unused key from lintUnused check
+
+// Replace deprecated semicolon syntax with slash syntax for other settings
+Global / historyPath := None
+Global / shellPrompt := { _ => "" }
+
+
+
+
 
 
 resolvers ++=Seq(
